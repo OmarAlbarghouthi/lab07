@@ -1,14 +1,27 @@
 const axios = require('axios');
 
+let Memory ={};
+
+
 function weatherStatus(req, res) {
+
    
     let searchQuery = req.query.city
     // console.log(searchQuery);
     
    let weatherUrl = `https://api.weatherbit.io/v2.0/forecast/daily?city=${searchQuery}&key=${process.env.WEATHER_KEY}`
 // console.log(weatherUrl);
-   
-axios 
+
+if(Memory[searchQuery] !== undefined){
+
+console.log('data is exist');
+res.send(Memory[searchQuery]);
+
+}
+else{
+    console.log('data not exist');
+
+    axios 
 .get(weatherUrl)
 .then(result =>{
 
@@ -22,6 +35,10 @@ axios
     }).catch(error=>{
         res.send(error)
     })
+// hello
+}
+   
+
 
 
 }
